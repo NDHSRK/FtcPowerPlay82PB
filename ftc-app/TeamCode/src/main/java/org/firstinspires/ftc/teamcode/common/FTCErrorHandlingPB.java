@@ -4,12 +4,12 @@ import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.ftcdevcommon.AutonomousRobotException;
-import org.firstinspires.ftc.ftcdevcommon.platform.android.RobotLogCommon;
 
 // Common error handling for Autonomous and TeleOp.
-public class FTCErrorHandling {
+public class FTCErrorHandlingPB {
 
     // Catch clauses for FTC Autonomous and TeleOp ---
 
@@ -31,7 +31,7 @@ public class FTCErrorHandling {
 
     public static void handleFtcErrors(Exception ex, String pTag, LinearOpMode pLinear) throws InterruptedException {
         if (ex instanceof InterruptedException) {
-            RobotLogCommon.e(pTag, "** FATAL ** caught InterruptedException; rethrowing");
+            RobotLog.e(pTag, "** FATAL ** caught InterruptedException; rethrowing");
             Log.e(pTag,  "** FATAL ** caught InterruptedException; rethrowing"); // write to the FTC log
             throw (InterruptedException) ex;
         }
@@ -44,12 +44,12 @@ public class FTCErrorHandling {
         pLinear.telemetry.setAutoClear(true);
         String eMessage = ex.getMessage() == null ? "**no error message**" : ex.getMessage();
         if (ex instanceof AutonomousRobotException) {
-            RobotLogCommon.e(((AutonomousRobotException) ex).getTag(), " ** FATAL AutonomousRobotException ** " + eMessage);
+            RobotLog.e(((AutonomousRobotException) ex).getTag(), " ** FATAL AutonomousRobotException ** " + eMessage);
             Log.e(((AutonomousRobotException) ex).getTag(), " ** FATAL ** " + eMessage);
             holdErrorMessageOnScreen(pLinear, pTag + " Fatal AutonomousRobotException", eMessage);
         } else {
             // Must be an Exception
-            RobotLogCommon.e(pTag, " ** FATAL Java Exception ** " + eMessage);
+            RobotLog.e(pTag, " ** FATAL Java Exception ** " + eMessage);
             Log.e(pTag, " ** FATAL Java Exception ** " + eMessage);
             holdErrorMessageOnScreen(pLinear,pTag + " Fatal Java Exception", eMessage);
         }

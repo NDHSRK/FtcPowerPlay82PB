@@ -3,14 +3,9 @@ package org.firstinspires.ftc.teamcode.teleop.opmodes.test;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.ftcdevcommon.platform.android.RobotLogCommon;
-import org.firstinspires.ftc.ftcdevcommon.platform.android.WorkingDirectory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.ProgrammingBoardHardware;
-import org.firstinspires.ftc.teamcode.common.FTCErrorHandling;
-import org.firstinspires.ftc.teamcode.common.RobotConstants;
+import org.firstinspires.ftc.teamcode.common.FTCErrorHandlingPB;
 import org.firstinspires.ftc.teamcode.teleop.common.FTCButton;
 
 @TeleOp(name = "TeleOp Drive", group = "Drive")
@@ -29,7 +24,6 @@ public class TeleOpDrive extends LinearOpMode {
         telemetry.update();
 
         try {
-            RobotLogCommon.initialize(RobotLogCommon.LogIdentifier.TELEOP_LOG, WorkingDirectory.getWorkingDirectory() + RobotConstants.logDir);
             robot = new ProgrammingBoardHardware(hardwareMap);
             robot.leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -45,9 +39,7 @@ public class TeleOpDrive extends LinearOpMode {
                 updatePlayerOne();
             }
         } catch (Exception ex) {
-            FTCErrorHandling.handleFtcErrors(ex, TAG, this);
-        } finally {
-            RobotLogCommon.closeLog();
+            FTCErrorHandlingPB.handleFtcErrors(ex, TAG, this);
         }
     }
 
